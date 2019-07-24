@@ -1,0 +1,285 @@
+{
+  "vulnerabilities": [
+    {
+      "CVSSv3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "alternativeIds": [
+        "SNYK-JS-MEM-11138"
+      ],
+      "creationTime": "2018-01-17T18:19:13Z",
+      "credit": [
+        "juancampa"
+      ],
+      "cvssScore": 5.1,
+      "description": "## Overview\n \n[mem](https://www.npmjs.com/package/mem) is an optimization used to speed up consecutive function calls by caching the result of calls with identical input.\n\n\nAffected versions of this package are vulnerable to Denial of Service (DoS).\nOld results were deleted from the cache and could cause a memory leak.\n\n## details\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\r\n\r\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\r\n\r\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\r\n\r\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\r\n\r\nTwo common types of DoS vulnerabilities:\r\n\r\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).\r\n\r\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](npm:ws:20171108)\n\n## Remediation\n\nUpgrade mem to version 4.0.0 or higher.\n\n\n## References\n\n- [Github Commit](https://github.com/sindresorhus/mem/commit/da4e4398cb27b602de3bd55f746efa9b4a31702b)\n\n- [GitHub Issue](https://github.com/sindresorhus/mem/issues/14)\n",
+      "disclosureTime": "2018-01-17T18:19:13Z",
+      "fixedIn": [
+        "4.0.0"
+      ],
+      "functions": [
+        {
+          "functionId": {
+            "className": null,
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized"
+          },
+          "version": [
+            "<=1.1.0"
+          ]
+        },
+        {
+          "functionId": {
+            "className": null,
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized.setData"
+          },
+          "version": [
+            ">1.1.0<4.0.0"
+          ]
+        }
+      ],
+      "functions_new": [
+        {
+          "functionId": {
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized"
+          },
+          "version": [
+            "<=1.1.0"
+          ]
+        },
+        {
+          "functionId": {
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized.setData"
+          },
+          "version": [
+            ">1.1.0<4.0.0"
+          ]
+        }
+      ],
+      "id": "npm:mem:20180117",
+      "identifiers": {
+        "ALTERNATIVE": [
+          "SNYK-JS-MEM-11138"
+        ],
+        "CVE": [],
+        "CWE": [
+          "CWE-400"
+        ]
+      },
+      "language": "js",
+      "modificationTime": "2019-02-18T11:51:56.754978Z",
+      "moduleName": "mem",
+      "packageManager": "npm",
+      "packageName": "mem",
+      "patches": [],
+      "publicationTime": "2018-08-29T11:23:09Z",
+      "references": [
+        {
+          "title": "Github Commit",
+          "url": "https://github.com/sindresorhus/mem/commit/da4e4398cb27b602de3bd55f746efa9b4a31702b"
+        },
+        {
+          "title": "GitHub Issue",
+          "url": "https://github.com/sindresorhus/mem/issues/14"
+        }
+      ],
+      "semver": {
+        "vulnerable": [
+          "<4.0.0"
+        ]
+      },
+      "severity": "medium",
+      "title": "Denial of Service (DoS)",
+      "from": [
+        "snyk-recursive@1.0.3",
+        "mem@1.1.0"
+      ],
+      "upgradePath": [
+        false,
+        "mem@4.0.0"
+      ],
+      "isUpgradable": true,
+      "isPatchable": false,
+      "name": "mem",
+      "version": "1.1.0"
+    },
+    {
+      "CVSSv3": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "alternativeIds": [
+        "SNYK-JS-MEM-11138"
+      ],
+      "creationTime": "2018-01-17T18:19:13Z",
+      "credit": [
+        "juancampa"
+      ],
+      "cvssScore": 5.1,
+      "description": "## Overview\n \n[mem](https://www.npmjs.com/package/mem) is an optimization used to speed up consecutive function calls by caching the result of calls with identical input.\n\n\nAffected versions of this package are vulnerable to Denial of Service (DoS).\nOld results were deleted from the cache and could cause a memory leak.\n\n## details\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\r\n\r\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\r\n\r\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\r\n\r\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\r\n\r\nTwo common types of DoS vulnerabilities:\r\n\r\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).\r\n\r\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](npm:ws:20171108)\n\n## Remediation\n\nUpgrade mem to version 4.0.0 or higher.\n\n\n## References\n\n- [Github Commit](https://github.com/sindresorhus/mem/commit/da4e4398cb27b602de3bd55f746efa9b4a31702b)\n\n- [GitHub Issue](https://github.com/sindresorhus/mem/issues/14)\n",
+      "disclosureTime": "2018-01-17T18:19:13Z",
+      "fixedIn": [
+        "4.0.0"
+      ],
+      "functions": [
+        {
+          "functionId": {
+            "className": null,
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized"
+          },
+          "version": [
+            "<=1.1.0"
+          ]
+        },
+        {
+          "functionId": {
+            "className": null,
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized.setData"
+          },
+          "version": [
+            ">1.1.0<4.0.0"
+          ]
+        }
+      ],
+      "functions_new": [
+        {
+          "functionId": {
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized"
+          },
+          "version": [
+            "<=1.1.0"
+          ]
+        },
+        {
+          "functionId": {
+            "filePath": "index.js",
+            "functionName": "module.exports.memoized.setData"
+          },
+          "version": [
+            ">1.1.0<4.0.0"
+          ]
+        }
+      ],
+      "id": "npm:mem:20180117",
+      "identifiers": {
+        "ALTERNATIVE": [
+          "SNYK-JS-MEM-11138"
+        ],
+        "CVE": [],
+        "CWE": [
+          "CWE-400"
+        ]
+      },
+      "language": "js",
+      "modificationTime": "2019-02-18T11:51:56.754978Z",
+      "moduleName": "mem",
+      "packageManager": "npm",
+      "packageName": "mem",
+      "patches": [],
+      "publicationTime": "2018-08-29T11:23:09Z",
+      "references": [
+        {
+          "title": "Github Commit",
+          "url": "https://github.com/sindresorhus/mem/commit/da4e4398cb27b602de3bd55f746efa9b4a31702b"
+        },
+        {
+          "title": "GitHub Issue",
+          "url": "https://github.com/sindresorhus/mem/issues/14"
+        }
+      ],
+      "semver": {
+        "vulnerable": [
+          "<4.0.0"
+        ]
+      },
+      "severity": "medium",
+      "title": "Denial of Service (DoS)",
+      "from": [
+        "snyk-recursive@1.0.3",
+        "strong-soap@1.9.0",
+        "strong-globalize@3.3.0",
+        "os-locale@2.1.0",
+        "mem@1.1.0"
+      ],
+      "upgradePath": [
+        false,
+        "strong-soap@1.13.0",
+        "strong-globalize@4.1.2",
+        "os-locale@3.0.1",
+        "mem@4.0.0"
+      ],
+      "isUpgradable": true,
+      "isPatchable": false,
+      "name": "mem",
+      "version": "1.1.0"
+    },
+    {
+      "license": "Artistic-2.0",
+      "semver": {
+        "vulnerable": [
+          ">=2.3.3"
+        ]
+      },
+      "id": "snyk:lic:npm:strong-globalize:Artistic-2.0",
+      "type": "license",
+      "packageManager": "npm",
+      "language": "js",
+      "packageName": "strong-globalize",
+      "title": "Artistic-2.0 license",
+      "description": "Artistic-2.0 license",
+      "publicationTime": "2019-06-11T18:18:39.043Z",
+      "creationTime": "2019-06-11T18:18:39.043Z",
+      "patches": [],
+      "licenseTemplateUrl": "https://raw.githubusercontent.com/spdx/license-list/master/Artistic-2.0.txt",
+      "severity": "medium",
+      "from": [
+        "snyk-recursive@1.0.3",
+        "strong-soap@1.9.0",
+        "strong-globalize@3.3.0"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "strong-globalize",
+      "version": "3.3.0"
+    }
+  ],
+  "ok": false,
+  "dependencyCount": 531,
+  "org": "test-org",
+  "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.13.5\nignore: {}\npatch: {}\n",
+  "isPrivate": true,
+  "licensesPolicy": {
+    "severities": {
+      "MS-RL": "medium",
+      "EPL-1.0": "medium",
+      "GPL-2.0": "high",
+      "GPL-3.0": "high",
+      "MPL-1.1": "medium",
+      "MPL-2.0": "medium",
+      "AGPL-1.0": "high",
+      "AGPL-3.0": "high",
+      "CDDL-1.0": "medium",
+      "LGPL-2.0": "medium",
+      "LGPL-2.1": "medium",
+      "LGPL-3.0": "medium",
+      "CPOL-1.02": "high",
+      "LGPL-2.1+": "medium",
+      "LGPL-3.0+": "medium",
+      "SimPL-2.0": "high",
+      "Artistic-1.0": "medium",
+      "Artistic-2.0": "medium"
+    }
+  },
+  "packageManager": "npm",
+  "ignoreSettings": null,
+  "summary": "3 vulnerable dependency paths",
+  "filesystemPolicy": false,
+  "filtered": {
+    "ignore": [],
+    "patch": []
+  },
+  "uniqueCount": 2,
+  "path": "/Users/adam/snyk-recursive"
+}
