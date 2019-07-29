@@ -9,7 +9,8 @@
     "snyk-recursive": ""
   },
   "author": "Adam Wolfe",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "chalk": "~2.4.1",
     "globby": "~8.0.1",
     "mem": "1.1.0",

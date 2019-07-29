@@ -2,8 +2,6 @@
 
 This package runs Snyk security scans recursively against every subdirectory containing a `node_modules` directory and a `package.json` file. 
 
-**NOTE: This readme is written as if this package has actually been published, but I haven't actually published it anywhere yet. Running `npm install snyk-recursive` won't install this code!**
-
 ## Usage
 
 ### Options
@@ -19,11 +17,14 @@ This package runs Snyk security scans recursively against every subdirectory con
 - Ensure you have snyk installed and set up
   - `npm install -g snyk`
   - `snyk auth`
-- Install the `snyk-recursive` package
-  - `npm install -g snyk-recursive`
-- At the root directory of your monorepo, run `snyk-recursive`
+- Link the `snyk-recursive` package locally
+  - `npm link`
+- In the directory with subdirectories you want to test, run the following
+  - `npm link snyk-recursive`
+  - `snyk-recursive`
 
 ### CI/CD Integration (for monorepos)
+- **Note: this section is NOT valid until I actually publish this package**
 - Add the `snyk-recursive` package as a dev-dependency to your monorepo
 - Create an npm script that runs `snyk-recursive --severity=<level>`, where severity will be the threshold for failing builds
 - In your CI/CD config, add a step after installing to run the npm script
