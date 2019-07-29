@@ -1,6 +1,8 @@
 # Snyk Recursive
 
-This package runs Snyk security scans recursively against every subdirectory containing a `node_modules` directory and a `package.json` file.
+This package runs Snyk security scans recursively against every subdirectory containing a `node_modules` directory and a `package.json` file. 
+
+**NOTE: This readme is written as if this package has actually been published, but I haven't actually published it anywhere yet. Running `npm install snyk-recursive` won't install this code!**
 
 ## Usage
 
