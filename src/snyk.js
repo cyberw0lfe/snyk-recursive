@@ -18,18 +18,29 @@ const SNYK_BIN = which.sync('snyk', { nothrow: true })
 const snyk = path => {
   const isPackage = existsSync(`${path}/package.json`)
   const isNodeModules = existsSync(`${path}/node_modules`)
+
   if (isPackage && isNodeModules) {
     return new Promise((resolve, reject) => {
-      let snykOutput = ''
-      const snyk = spawn(SNYK_BIN, [ 'test', path, '--json' ])
+      const severityParam = severity ? `--severity-threshold=${severity}` : null
+      const snyk = spawn(SNYK_BIN, [ `test`, severityParam, `--file=package.json`, `--json`, path ])
 
+      let snykOutput = ''
       snyk.stdout.on('data', data => {
         snykOutput += data
       })
 
       snyk.stdout.on('end', data => {
+        const name = require(`${path}/package.json`).name
+
+        if (!devMode) {
+          const monitor = spawn(SNYK_BIN, [ `monitor`, `--project-name=${name}` ], { cwd: `${path}` })
+          monitor.stdout.on('end', data => {
+            resolve(snykOutput)
+          })
+        } else {
+          resolve(snykOutput)
+        }
         console.log(green(`Successfully ran Snyk in directory: ${path}`))
-        resolve(snykOutput)
       })
 
       snyk.stderr.on('data', err => {
@@ -70,9 +81,10 @@ const handleResults = results => {
         process.exit(1)
       }
     } catch (err) {
-      console.log(red(`WARNING Error printing snyk results: ${err}`))
+      console.log(yellow(`WARNING Error printing snyk results: ${err}`))
       if (devMode) {
         // this is added because sometimes the result stream is cut off, causing an error parsing the JSON
+        // if this happens look to increase the file limits, see readme
         const response = readlineSync.question('Print result causing error? (y/n) ')
         if (response.toLowerCase() === 'y') console.log(red(result))
       } else {
