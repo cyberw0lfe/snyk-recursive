@@ -9,8 +9,7 @@
     "snyk-recursive": ""
   },
   "author": "Adam Wolfe",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "chalk": "~2.4.1",
     "globby": "~8.0.1",
     "mem": "1.1.0",
@@ -20,6 +19,7 @@
     "which": "^1.3.1",
     "yargs": "~12.0.5"
   },
+  "devDependencies": {},
   "bin": {
     "snyk-recursive": "src/snyk.js"
   }
