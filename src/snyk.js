@@ -21,7 +21,7 @@ const snyk = path => {
 
   if (isPackage && isNodeModules) {
     return new Promise((resolve, reject) => {
-      const severityParam = severity ? `--severity-threshold=${severity}` : null
+      const severityParam = severityLevel ? `--severity-threshold=${severityLevel}` : null
       const snyk = spawn(SNYK_BIN, [ `test`, severityParam, `--file=package.json`, `--json`, path ])
 
       let snykOutput = ''
