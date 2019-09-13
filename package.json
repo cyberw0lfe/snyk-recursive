@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/**.js",
-    "lint:fix": "eslint --fix **/**.js",
-    "snyk-recursive": ""
+    "lint:fix": "eslint --fix **/**.js"
   },
   "author": "Adam Wolfe",
   "dependencies": {
