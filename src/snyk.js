@@ -30,17 +30,18 @@ const snyk = path => {
       })
 
       snyk.stdout.on('end', data => {
-        const name = require(`${path}/package.json`).name
+        // const name = require(`${path}/package.json`).name
 
-        if (!devMode) {
-          const monitor = spawn(SNYK_BIN, [ `monitor`, `--project-name=${name}` ], { cwd: `${path}` })
-          monitor.stdout.on('end', data => {
-            resolve(snykOutput)
-          })
-        } else {
-          resolve(snykOutput)
-        }
+        // if (!devMode) {
+        //   const monitor = spawn(SNYK_BIN, [ `monitor`, `--project-name=${name}` ], { cwd: `${path}` })
+        //   monitor.stdout.on('end', data => {
+        //     resolve(snykOutput)
+        //   })
+        // } else {
+        //   resolve(snykOutput)
+        // }
         console.log(green(`Successfully ran Snyk in directory: ${path}`))
+        resolve(snykOutput)
       })
 
       snyk.stderr.on('data', err => {
