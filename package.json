@@ -1,6 +1,6 @@
 {
   "name": "snyk-recursive",
-  "version": "1.0.3",
+  "version": "0.0.3",
   "description": "Run Snyk recursively in valid subdirectories.",
   "main": "index.js",
   "scripts": {
