@@ -17,17 +17,14 @@ This package runs Snyk security scans recursively against every subdirectory con
 - Ensure you have snyk installed and set up
   - `npm install -g snyk`
   - `snyk auth`
-- Link the `snyk-recursive` package locally
-  - `npm link`
-- In the directory with subdirectories you want to test, run the following
-  - `npm link snyk-recursive`
-  - `snyk-recursive`
+- Install the `snyk-recursive` package
+  - `npm i -g snyk-recursive`
+- In the directory with subdirectories you want to test, run `snyk-recursive`
 
 ### CI/CD Integration (for monorepos)
-- **Note: this section is NOT valid until I actually publish this package**
-- Add the `snyk-recursive` package as a dev-dependency to your monorepo
+- Install the `snyk-recursive` package as a dev-dependency to your monorepo
 - Create an npm script that runs `snyk-recursive --severity=<level>`, where severity will be the threshold for failing builds
-- In your CI/CD config, add a step after installing to run the npm script
+- In your CI/CD config, add a step after installing dependencies to run the npm script
 - You **must** add an environment variable `SNYK_TOKEN=<token>` for snyk to authorize your pipeline to run a security scan
   - Your token can be found on your Snyk profile or using a service account
 
@@ -43,4 +40,4 @@ This package runs Snyk security scans recursively against every subdirectory con
     - `sudo sysctl -w kern.maxfilesperproc=65536`
     - `ulimit -n 65536 65536`
     - `sudo launchctl limit maxfiles 65536 200000`
-    - You can go higher, but those have been sufficient thus far in testing. Source: https://wilsonmar.github.io/maximum-limits/
+    - Source: https://wilsonmar.github.io/maximum-limits/
