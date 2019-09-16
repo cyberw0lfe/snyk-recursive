@@ -3,6 +3,7 @@ const { spawn, spawnSync } = require('child_process')
 const which = require('which')
 const argv = require('yargs').argv
 const chalk = require('chalk')
+const fs = require('fs')
 const severityLevel = argv.severity
 const green = chalk.green
 const red = chalk.red
@@ -17,13 +18,11 @@ const snykSync = path => {
   if (isPackage && isNodeModules) {
     return new Promise((resolve, reject) => {
       const severityParam = severityLevel ? `--severity-threshold=${severityLevel}` : null
-      const snyk = spawnSync(
-        SNYK_BIN,
-        [ `test`, severityParam, `--file=package.json`, `--json`, path ],
-        { maxBuffer: 100000 }
-      )
+      const snyk = spawnSync(SNYK_BIN, [ `test`, severityParam, `--file=package.json`, `--json`, path ])
       console.log(green(`Successfully ran Snyk in directory: ${path}`))
-      resolve(snyk.output)
+      const output = JSON.parse(snyk.stdout.toString())[1]
+      console.log(output)
+      resolve(output)
     })
       .catch(err => {
         console.log(red(err))

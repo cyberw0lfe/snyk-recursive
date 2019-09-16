@@ -12,12 +12,11 @@ const parseResults = results => {
   const filteredResults = results.filter(result => !!result)
   filteredResults.forEach(result => {
     try {
-      const jsonResult = JSON.parse(result)
-      const severities = countSeverityLevels(jsonResult)
+      const severities = countSeverityLevels(result)
       if (devMode) {
-        printTestResult(jsonResult, severities)
+        printTestResult(result, severities)
       } else if (!devMode && !buildPasses(severities)) {
-        printTestResult(jsonResult, severities)
+        printTestResult(result, severities)
         console.log(red('\nSNYK SECURITY SCAN FAILED'))
         process.exit(1)
       }
