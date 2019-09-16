@@ -13,7 +13,7 @@ const severityLevels = {
   low: 'low',
 }
 
-const getMonorepoPackages = () => {
+const getSubdirectories = () => {
   const packages = globby.sync(`./*/**/package.json`)
   const filteredPacakges = packages.filter(pkg => !/node_modules/gi.test(pkg))
   return filteredPacakges.map(path => path.replace(/\/package.json/, ''))
@@ -83,4 +83,12 @@ const printTestResult = (result, severities) => {
   if (!result.ok && result.vulnerabilities.length > 0) printUniqueVulnerabilities(result)
 }
 
-module.exports = { getMonorepoPackages, printTestResult, countSeverityLevels, severityLevels }
+const buildPasses = severities => {
+  const { low, medium, high } = severities
+  if (severityLevel === severityLevels.high && high > 0) return false
+  if (severityLevel === severityLevels.medium && high + medium > 0) return false
+  if (severityLevel === severityLevels.low && high + medium + low > 0) return false
+  return true
+}
+
+module.exports = { getSubdirectories, printTestResult, countSeverityLevels, severityLevels, buildPasses }
