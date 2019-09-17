@@ -29,15 +29,8 @@ This package runs Snyk security scans recursively against every subdirectory con
   - Your token can be found on your Snyk profile or using a service account
 
 ## Known Issues
+**This should be addressed as of `snyk-recursive@0.0.6`**
 - sometimes running Snyk through the `spawn` will cut off the output stream, causing errors in parsing the JSON response
   - When this happens in dev mode you will be prompted if you want to print the cut off response
   - If running for a build it will simply print out a message and continue analysis on the remaining packages
   - **NOTE: this almost always happens because snyk found a vulnerability and the output stream is too large for the child process, so Snyk should be run manually on any packages that fail to ensure they are secure**
-  - This can be potentially addressed by tweaking the file system config with the following commands:
-    - `echo kern.maxfiles=65536 | sudo tee -a /etc/sysctl.conf`
-    - `echo kern.maxfilesperproc=65536 | sudo tee -a /etc/sysctl.conf`
-    - `sudo sysctl -w kern.maxfiles=65536`
-    - `sudo sysctl -w kern.maxfilesperproc=65536`
-    - `ulimit -n 65536 65536`
-    - `sudo launchctl limit maxfiles 65536 200000`
-    - Source: https://wilsonmar.github.io/maximum-limits/
