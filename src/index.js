@@ -14,8 +14,9 @@ const runSnyk = paths => {
 
 const SNYK_BIN = which.sync('snyk', { nothrow: true })
 if (SNYK_BIN) {
+  console.log(`Finding subdirectories...`)
   const paths = getSubdirectories()
-  // console.log(`Found subdirectories: ${paths}`)
+  console.log(`Found ${paths.length} subdirectories`)
   paths.length > 0 ? runSnyk(paths) : console.log(red(`No packages found, make sure to run at the root directory!`)) && process.exit(1)
 } else {
   console.log('ERROR: Snyk not found')
