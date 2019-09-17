@@ -44,7 +44,7 @@ const snykAsync = path => {
 
       snyk.stdout.on('end', data => {
         console.log(green(`Successfully ran Snyk in directory: ${path}`))
-        resolve(snykOutput)
+        resolve(JSON.parse(snykOutput.toString())[1])
       })
 
       snyk.stderr.on('data', err => {

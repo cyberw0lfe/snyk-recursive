@@ -1,11 +1,14 @@
 #! /usr/bin/env node
 const which = require('which')
+const argv = require('yargs').argv
 const { getSubdirectories } = require('./utils')
 const { snykSync, snykAsync } = require('./snyk')
 const parseResults = require('./parseResults')
 
 const runSnyk = paths => {
-  const results = paths.map(path => snykSync(path))
+  const results = paths.map(path => 
+    argv.async ? snykAsync(path) : snykSync(path)
+  )
   Promise.all(results)
     .then(values => {
       parseResults(values)
