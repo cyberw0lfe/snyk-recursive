@@ -91,4 +91,4 @@ const buildPasses = severities => {
   return true
 }
 
-module.exports = { getSubdirectories, printTestResult, countSeverityLevels, severityLevels, buildPasses }
+module.exports = { getSubdirectories, printTestResult, countSeverityLevels, buildPasses }
