@@ -28,11 +28,9 @@ const snykSync = path => {
 }
 
 const snykAsync = path => {
-  console.log(`Running Snyk in directory: ${path}`)
-  const isPackage = existsSync(`${path}/package.json`)
-  const isNodeModules = existsSync(`${path}/node_modules`)
+  const isValidDirectory = existsSync(`${path}/package.json`) && existsSync(`${path}/node_modules`)
 
-  if (isPackage && isNodeModules) {
+  if (isValidDirectory) {
     return new Promise((resolve, reject) => {
       const severityParam = severityLevel ? `--severity-threshold=${severityLevel}` : null
       const snyk = spawn(SNYK_BIN, [ `test`, severityParam, `--file=package.json`, `--json`, path ])
