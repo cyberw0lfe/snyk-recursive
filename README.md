@@ -1,5 +1,6 @@
 # Snyk Recursive
 [![Build Status](https://travis-ci.org/adamtwolfe/snyk-recursive.svg?branch=master)](https://travis-ci.org/adamtwolfe/snyk-recursive)
+
 This package runs Snyk security scans recursively against every subdirectory containing a `node_modules` directory and a `package.json` file. 
 
 ## Usage
