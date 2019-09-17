@@ -1,11 +1,11 @@
 #! /usr/bin/env node
 const which = require('which')
 const { getSubdirectories } = require('./utils')
-const { snykSync, snykAsync } = require('./snyk')
+const snyk = require('./snyk')
 const parseResults = require('./parseResults')
 
 const runSnyk = paths => {
-  const results = paths.map(path => snykSync(path))
+  const results = paths.map(path => snyk(path))
   Promise.all(results)
     .then(values => {
       parseResults(values)
