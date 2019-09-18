@@ -17,7 +17,6 @@ const snykSync = (path, resolve, reject) => {
 
 const snykAsync = (path, resolve, reject) => {
   const snyk = spawn(SNYK_BIN, [ `test`, severityParam, orgParam, `--json`, path ])
-
   let snykOutput = ''
   snyk.stdout.on('data', data => {
     snykOutput += data
@@ -25,6 +24,7 @@ const snykAsync = (path, resolve, reject) => {
 
   snyk.stdout.on('end', data => {
     console.log(green(`Successfully ran Snyk in directory: ${path}`))
+    console.log('OUTPUT: ', JSON.parse(snykOutput.toString())[1])
     resolve(JSON.parse(snykOutput.toString())[1])
   })
 

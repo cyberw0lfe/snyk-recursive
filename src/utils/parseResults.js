@@ -4,7 +4,7 @@ const { printTestResult } = require('../utils/printer')
 const { countSeverityLevels, buildPasses } = require('../utils/severity')
 const { green, red, yellow } = require('chalk')
 
-const devMode = argv.severity == null
+const devMode = argv.severity == null // pass in
 
 const parseResults = results => {
   const filteredResults = results.filter(result => !!result)
