@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 const which = require('which')
-const { getSubdirectories } = require('./utils')
 const snyk = require('./snyk')
-const parseResults = require('./parseResults')
+const { getSubdirectories } = require('./utils/directory')
+const parseResults = require('./utils/parseResults')
 
 const runSnyk = paths => {
   const results = paths.map(path => snyk(path))

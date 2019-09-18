@@ -1,12 +1,10 @@
 const readlineSync = require('readline-sync')
 const argv = require('yargs').argv
-const { printTestResult, countSeverityLevels } = require('./utils')
-const chalk = require('chalk')
-const green = chalk.green
-const red = chalk.red
-const yellow = chalk.yellow
-const severityLevel = argv.severity
-const devMode = severityLevel == null
+const { printTestResult } = require('../utils/printer')
+const { countSeverityLevels, buildPasses } = require('../utils/severity')
+const { green, red, yellow } = require('chalk')
+
+const devMode = argv.severity == null
 
 const parseResults = results => {
   const filteredResults = results.filter(result => !!result)
