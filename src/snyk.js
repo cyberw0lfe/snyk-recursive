@@ -1,4 +1,5 @@
 const { spawn, spawnSync } = require('child_process')
+const { writeFileSync } = require('fs')
 const which = require('which')
 const argv = require('yargs').argv
 const { green, yellow, red } = require('chalk')
@@ -10,13 +11,13 @@ const orgParam = argv.org ? `--org=${argv.org}` : null
 const isAsync = argv.async
 
 const snykSync = (path, resolve, reject) => {
-  const snyk = spawnSync(SNYK_BIN, [ `test`, severityParam, orgParam, `--json`, path ])
+  const snyk = spawnSync(SNYK_BIN, [ `test`, `--json`, path, severityParam, orgParam ])
   console.log(green(`Successfully ran Snyk in directory: ${path}`))
-  resolve(JSON.parse(snyk.stdout.toString())[1])
+  resolve(JSON.parse(snyk.stdout.toString())[0])
 }
 
 const snykAsync = (path, resolve, reject) => {
-  const snyk = spawn(SNYK_BIN, [ `test`, severityParam, orgParam, `--json`, path ])
+  const snyk = spawn(SNYK_BIN, [ `test`, `--json`, path, severityParam, orgParam ])
   let snykOutput = ''
   snyk.stdout.on('data', data => {
     snykOutput += data
@@ -24,8 +25,8 @@ const snykAsync = (path, resolve, reject) => {
 
   snyk.stdout.on('end', data => {
     console.log(green(`Successfully ran Snyk in directory: ${path}`))
-    console.log('OUTPUT: ', JSON.parse(snykOutput.toString())[1])
-    resolve(JSON.parse(snykOutput.toString())[1])
+    writeFileSync(`${__dirname}/${path}.json`, snykOutput.toString())
+    resolve(JSON.parse(snykOutput.toString())[0])
   })
 
   snyk.stderr.on('data', err => {
