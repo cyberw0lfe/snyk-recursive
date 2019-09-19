@@ -4,12 +4,12 @@
 This package runs Snyk security scans recursively against every subdirectory containing a `node_modules` directory and a `package.json` file. 
 
 ## Usage
-`snyk-recursive` will run in 'dev mode', where the results from every scan will be printed in the terminal. By default scans are run syncrhonously.
+`snyk-recursive` will run in 'dev mode', where the results from every scan will be printed in the terminal. By default scans are run synchronously.
 ### Options
 - `--async` - run the Snyk scans asynchronously
+- `--org=<your-org>` OR `--org <your-org>`
 - `--severity=<level>` OR `--severity <level>`
-  - severity levels
-    - `low`, `medium`, `high`
+  - severity levels - `low`, `medium`, `high`
   - stops execution when a vulnerability at or above the security level is found
   - prints out a summary of the offending package
   - exits the process w/ a non-zero code in order to fail builds

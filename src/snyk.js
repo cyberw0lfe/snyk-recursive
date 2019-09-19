@@ -1,23 +1,18 @@
 const { spawn, spawnSync } = require('child_process')
-const { writeFileSync } = require('fs')
 const which = require('which')
-const argv = require('yargs').argv
 const { green, yellow, red } = require('chalk')
 const { isValidDirectory } = require('./utils/directory')
 
 const SNYK_BIN = which.sync('snyk', { nothrow: true })
-const severityParam = argv.severity ? `--severity-threshold=${argv.severity}` : null
-const orgParam = argv.org ? `--org=${argv.org}` : null
-const isAsync = argv.async
 
-const snykSync = (path, resolve, reject) => {
-  const snyk = spawnSync(SNYK_BIN, [ `test`, `--json`, path, severityParam, orgParam ])
+const snykSync = (path, snykArgs, resolve, reject) => {
+  const snyk = spawnSync(SNYK_BIN, snykArgs)
   console.log(green(`Successfully ran Snyk in directory: ${path}`))
-  resolve(JSON.parse(snyk.stdout.toString())[0])
+  resolve(JSON.parse(snyk.stdout.toString()))
 }
 
-const snykAsync = (path, resolve, reject) => {
-  const snyk = spawn(SNYK_BIN, [ `test`, `--json`, path, severityParam, orgParam ])
+const snykAsync = (path, snykArgs, resolve, reject) => {
+  const snyk = spawn(SNYK_BIN, snykArgs)
   let snykOutput = ''
   snyk.stdout.on('data', data => {
     snykOutput += data
@@ -25,8 +20,7 @@ const snykAsync = (path, resolve, reject) => {
 
   snyk.stdout.on('end', data => {
     console.log(green(`Successfully ran Snyk in directory: ${path}`))
-    writeFileSync(`${__dirname}/${path}.json`, snykOutput.toString())
-    resolve(JSON.parse(snykOutput.toString())[0])
+    resolve(JSON.parse(snykOutput.toString()))
   })
 
   snyk.stderr.on('data', err => {
@@ -38,10 +32,13 @@ const snykAsync = (path, resolve, reject) => {
   })
 }
 
-const snyk = path => {
+const snyk = (path, severity, org, isAsync) => {
   if (isValidDirectory(path)) {
     return new Promise((resolve, reject) => {
-      isAsync ? snykAsync(path, resolve, reject) : snykSync(path, resolve, reject)
+      const snykArgs = ['test', '--json', path]
+      severity && snykArgs.push(`--severity-threshold=${severity}`)
+      org && snykArgs.push(`--org=${org}`)
+      isAsync ? snykAsync(path, snykArgs, resolve, reject) : snykSync(path, snykArgs, resolve, reject)
     })
     .catch(err => {
       console.log(red(err))

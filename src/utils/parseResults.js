@@ -1,19 +1,16 @@
 const readlineSync = require('readline-sync')
-const argv = require('yargs').argv
 const { printTestResult } = require('../utils/printer')
 const { countSeverityLevels, buildPasses } = require('../utils/severity')
 const { green, red, yellow } = require('chalk')
 
-const devMode = argv.severity == null // pass in
-
-const parseResults = results => {
+const parseResults = (results, devMode) => {
   const filteredResults = results.filter(result => !!result)
   filteredResults.forEach(result => {
     try {
       const severities = countSeverityLevels(result)
       if (devMode) {
         printTestResult(result, severities)
-      } else if (!devMode && !buildPasses(severities)) {
+      } else if (!buildPasses(severities)) {
         printTestResult(result, severities)
         console.log(red('\nSNYK SECURITY SCAN FAILED'))
         process.exit(1)
