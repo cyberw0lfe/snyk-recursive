@@ -19,11 +19,12 @@ const parseResults = (results, devMode) => {
       console.log(yellow(`WARNING Error printing snyk results: ${err}`))
       if (devMode) {
         // this is added because sometimes the result stream is cut off, causing an error parsing the JSON
-        // if this happens look to increase the file limits, see readme
         const response = readlineSync.question('Print result causing error? (y/n) ')
-        if (response.toLowerCase() === 'y') console.log(red(result))
+        if (response.toLowerCase() === 'y') console.log(red(JSON.stringify(result)))
+        // error to handle for below
+        //{"ok":false,"error":"Dependency ijbap-shared-components was not found in yarn.lock. Your package.json and yarn.lock are probably out of sync. Please run \"yarn install\" and try again.","path":"packages/components/common/master-layout"}
       } else {
-        console.log(red(`Offending result: ${result}`))
+        console.log(red(`Offending result: ${JSON.stringify(result)}`))
       }
     }
   })

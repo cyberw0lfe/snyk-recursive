@@ -1,6 +1,6 @@
 {
   "name": "snyk-recursive",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Run Snyk recursively in valid subdirectories.",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,14 @@
     "type": "git",
     "url": "https://github.com/adamtwolfe/snyk-recursive.git"
   },
-  "keywords": ["snyk", "security", "test", "vulnerable", "vulnerability", "vulnerabilities"],
+  "keywords": [
+    "snyk",
+    "security",
+    "test",
+    "vulnerable",
+    "vulnerability",
+    "vulnerabilities"
+  ],
   "dependencies": {
     "chalk": "~2.4.1",
     "globby": "~8.0.1",
