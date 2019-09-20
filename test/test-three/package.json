@@ -1,0 +1,14 @@
+{
+  "name": "test-three",
+  "version": "1.0.0",
+  "description": "third test package for snyk-recursive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "strong-soap": "^1.9.0"
+  }
+}
