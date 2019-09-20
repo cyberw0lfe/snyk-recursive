@@ -2,7 +2,7 @@
 const which = require('which')
 const argv = require('yargs').argv
 const snyk = require('./snyk')
-const { getSubdirectories } = require('./utils/directory')
+const { getSubdirectories, isValidDirectory } = require('./utils/directory')
 const parseResults = require('./utils/parseResults')
 
 const severity = argv.severity
@@ -21,6 +21,7 @@ const SNYK_BIN = which.sync('snyk', { nothrow: true })
 if (SNYK_BIN) {
   console.log(`Finding subdirectories...`)
   const paths = getSubdirectories()
+  isValidDirectory('./') && paths.push('./')
   console.log(`Found ${paths.length} subdirectories`)
   paths.length > 0 ? runSnyk(paths) : console.log(red(`No packages found, make sure to run at the root directory!`)) && process.exit(1)
 } else {
