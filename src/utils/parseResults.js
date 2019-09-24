@@ -1,31 +1,35 @@
 const readlineSync = require('readline-sync')
-const { printTestResult } = require('../utils/printer')
+const { printTestResult, printSnykError } = require('../utils/printer')
 const { countSeverityLevels, buildPasses } = require('../utils/severity')
-const { green, red, yellow } = require('chalk')
+const { green, red } = require('chalk')
+
+const parseError = (result, devMode) => {
+  if (devMode) {
+    const response = readlineSync.question(red('Error running Snyk! Print error? (y/n) '))
+    if (response.toLowerCase() === 'y') printSnykError(result)
+  } else {
+    console.log(red('ERROR running Snyk!'))
+    printSnykError(result)
+    console.log(red('Failing build. . .'))
+    process.exit(1)
+  }
+}
+
+const parseResult = (result, devMode) => {
+  const severities = countSeverityLevels(result)
+  if (devMode) {
+    printTestResult(result, severities)
+  } else if (!buildPasses(severities)) {
+    printTestResult(result, severities)
+    console.log(red('\nSNYK SECURITY SCAN FAILED'))
+    process.exit(1)
+  }
+}
 
 const parseResults = (results, devMode) => {
   const filteredResults = results.filter(result => !!result)
   filteredResults.forEach(result => {
-    try {
-      const severities = countSeverityLevels(result)
-      if (devMode) {
-        printTestResult(result, severities)
-      } else if (!buildPasses(severities)) {
-        printTestResult(result, severities)
-        console.log(red('\nSNYK SECURITY SCAN FAILED'))
-        process.exit(1)
-      }
-    } catch (err) {
-      console.log(yellow(`WARNING Error printing snyk results: ${err}`))
-      if (devMode) {
-        // this is added because sometimes the result stream is cut off, causing an error parsing the JSON
-        // if this happens look to increase the file limits, see readme
-        const response = readlineSync.question('Print result causing error? (y/n) ')
-        if (response.toLowerCase() === 'y') console.log(red(result))
-      } else {
-        console.log(red(`Offending result: ${result}`))
-      }
-    }
+    result.error ? parseError(result, devMode) : parseResult(result, devMode)
   })
 
   if (!devMode) {

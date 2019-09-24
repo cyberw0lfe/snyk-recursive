@@ -26,6 +26,11 @@ Path:       ${vulnerability.from.join(' -> ')}\n`,
   )
 }
 
+const printSnykError = error => {
+  console.log(red(`Path: ${error.path}
+Error: ${error.error}`))
+}
+
 const printUniqueVulnerabilities = result => {
   const uniqueVulnerabilities = []
   result.vulnerabilities.forEach(vulnerability => {
@@ -42,4 +47,4 @@ const printTestResult = (result, severities) => {
   if (!result.ok && result.vulnerabilities.length > 0) printUniqueVulnerabilities(result)
 }
 
-module.exports = { printTestResult }
+module.exports = { printTestResult, printSnykError }
