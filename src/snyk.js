@@ -1,7 +1,7 @@
 const { spawn, spawnSync } = require('child_process')
 const which = require('which')
 const { green, yellow, red } = require('chalk')
-const { isValidDirectory } = require('./utils/directory')
+const { isValidSnykDirectory } = require('./utils/directory')
 
 const SNYK_BIN = which.sync('snyk', { nothrow: true })
 
@@ -33,7 +33,7 @@ const snykAsync = (path, snykArgs, resolve, reject) => {
 }
 
 const snyk = (path, severity, org, isAsync) => {
-  if (isValidDirectory(path)) {
+  if (isValidSnykDirectory(path)) {
     return new Promise((resolve, reject) => {
       const snykArgs = ['test', '--json', path]
       severity && snykArgs.push(`--severity-threshold=${severity}`)
@@ -44,7 +44,7 @@ const snyk = (path, severity, org, isAsync) => {
       console.log(red(err))
     })
   } else {
-    // console.log(yellow(`No dependency record or node_modules found in directory: ${path}`))
+    console.log(yellow(`No dependency record or node_modules found in directory: ${path}`))
   }
 }
 
