@@ -9,25 +9,28 @@ const isValidSnykDirectory = path => {
   return hasModules && hasDepRecord ? true : false
 }
 
-const dirs = []
-const walkDir = dir => {  
-  fs.readdirSync(dir).forEach(f => {
-    const dirPath = path.join(dir, f)
-    const isDir = fs.statSync(dirPath).isDirectory()
-    const isNodeMod = dirPath.indexOf('node_modules') >= 0
-    const isGit = dirPath.indexOf('.git') >= 0
+const isTargetDir = dirPath => {
+  if(dirPath.indexOf('node_modules') >= 0) return false
+  if(dirPath.indexOf('.git') >= 0) return false
+  return true
+}
 
-    if (!isNodeMod && !isGit && isDir) {
-      dirs.push(dirPath)
-      walkDir(dirPath)
+const walk = (dir) => {
+  let dirs = []
+  const contents = fs.readdirSync(dir)
+  contents.forEach(file => {
+    const dirPath = path.join(dir, file)
+    if(fs.statSync(dirPath).isDirectory()) {
+      isTargetDir(dirPath) && dirs.push(dirPath)
+      dirs = dirs.concat(walk(dirPath))
     }
   })
+  return dirs
 }
 
 const getSubdirectories = () => {
-  walkDir('./')
-  if(isValidSnykDirectory('./')) dirs.push('./')
-  
+  const dirs = walk('./')
+  dirs.push('./')
   return dirs.filter(dir => isValidSnykDirectory(dir))
 }
 
