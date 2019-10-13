@@ -18,6 +18,11 @@ const runSnyk = paths => {
     })
 }
 
+if(argv.v || argv.version) {
+  console.log(require('../package.json').version)
+  process.exit(0)
+}
+
 const SNYK_BIN = which.sync('snyk', { nothrow: true })
 if (SNYK_BIN) {
   console.log(`Finding subdirectories...`)

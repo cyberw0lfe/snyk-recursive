@@ -6,6 +6,7 @@ This package runs Snyk security scans recursively against every subdirectory con
 ## Usage
 `snyk-recursive` will run in 'dev mode', where the results from every scan will be printed in the terminal. By default scans are run synchronously.
 ### Options
+- `--v` or `--version` - log current version to the console
 - `--async` - run the Snyk scans asynchronously
 - `--org=<your-org>` OR `--org <your-org>`
 - `--severity=<level>` OR `--severity <level>`
