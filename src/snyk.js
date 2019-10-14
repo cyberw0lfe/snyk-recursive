@@ -1,7 +1,6 @@
 const { spawn, spawnSync } = require('child_process')
 const which = require('which')
-const { green, yellow, red } = require('chalk')
-const { isValidSnykDirectory } = require('./utils/directory')
+const { green, red } = require('chalk')
 
 const SNYK_BIN = which.sync('snyk', { nothrow: true })
 
@@ -33,19 +32,15 @@ const snykAsync = (path, snykArgs, resolve, reject) => {
 }
 
 const snyk = (path, severity, org, isAsync) => {
-  if (isValidSnykDirectory(path)) {
-    return new Promise((resolve, reject) => {
-      const snykArgs = ['test', '--json', path]
-      severity && snykArgs.push(`--severity-threshold=${severity}`)
-      org && snykArgs.push(`--org=${org}`)
-      isAsync ? snykAsync(path, snykArgs, resolve, reject) : snykSync(path, snykArgs, resolve, reject)
-    })
-    .catch(err => {
-      console.log(red(err))
-    })
-  } else {
-    console.log(yellow(`No dependency record or node_modules found in directory: ${path}`))
-  }
+  return new Promise((resolve, reject) => {
+    const snykArgs = ['test', '--json', path]
+    severity && snykArgs.push(`--severity-threshold=${severity}`)
+    org && snykArgs.push(`--org=${org}`)
+    isAsync ? snykAsync(path, snykArgs, resolve, reject) : snykSync(path, snykArgs, resolve, reject)
+  })
+  .catch(err => {
+    console.log(red(err))
+  })
 }
 
 module.exports = snyk

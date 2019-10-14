@@ -1,15 +1,11 @@
-const readlineSync = require('readline-sync')
 const { printTestResult, printSnykError } = require('../utils/printer')
 const { countSeverityLevels, buildPasses } = require('../utils/severity')
 const { green, red } = require('chalk')
 
-const parseError = (result, devMode) => {
-  if (devMode) {
-    const response = readlineSync.question(red('Error running Snyk! Print error? (y/n) '))
-    if (response.toLowerCase() === 'y') printSnykError(result)
-  } else {
-    console.log(red('ERROR running Snyk!'))
-    printSnykError(result)
+const parseErrors = (results, devMode) => {
+  console.log(red('ERROR running Snyk!'))  
+  results.forEach(result => printSnykError(result))
+  if (!devMode) {
     console.log(red('Failing build. . .'))
     process.exit(1)
   }
@@ -27,10 +23,13 @@ const parseResult = (result, devMode) => {
 }
 
 const parseResults = (results, devMode) => {
+  const errors = []
   const filteredResults = results.filter(result => !!result)
   filteredResults.forEach(result => {
-    result.error ? parseError(result, devMode) : parseResult(result, devMode)
+    result.error ? errors.push(result) : parseResult(result, devMode)
   })
+
+  parseErrors(errors, devMode)
 
   if (!devMode) {
     console.log(green('SNYK SECURITY SCAN PASSED'))
