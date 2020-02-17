@@ -1,9 +1,9 @@
 # Snyk Recursive
 [![Build Status](https://travis-ci.org/adamtwolfe/snyk-recursive.svg?branch=master)](https://travis-ci.org/adamtwolfe/snyk-recursive)
 
-This package runs Snyk security scans recursively against every subdirectory containing:
+This package runs Snyk security scans recursively against every subdirectory containing one of the following:
 - A `node_modules` directory as well as a `package.json` file
-- A pom.xml file or a gradle.build file.
+- A `pom.xml` file or a `gradle.build` file.
 
 ## Usage
 `snyk-recursive` will run in 'dev mode', where the results from every scan will be printed in the terminal. By default scans are run synchronously.
