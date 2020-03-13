@@ -1,12 +1,14 @@
 const fs = require('fs')
 const path = require('path')
 
-const targetFiles = ['package.json', 'package-lock.json', 'yarn.json', 'yarn.lock']
+const targetFilesNJS = ['package.json', 'package-lock.json', 'yarn.json', 'yarn.lock']
+const targetFilesJava = ['pom.xml', 'build.gradle']
 const isValidSnykDirectory = path => {
   const dirFiles = fs.readdirSync(path)
   const hasModules = dirFiles.includes('node_modules')
-  const hasDepRecord = dirFiles.filter(file => targetFiles.includes(file)).length > 0
-  return hasModules && hasDepRecord ? true : false
+  const hasDepRecordNJS = dirFiles.filter(file => targetFilesNJS.includes(file)).length > 0
+  const hasDepRecordJava = dirFiles.filter(file => targetFilesJava.includes(file)).length > 0
+  return (hasModules && hasDepRecordNJS) || hasDepRecordJava ? true : false
 }
 
 const isTargetDir = dirPath => {
