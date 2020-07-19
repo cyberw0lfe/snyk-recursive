@@ -5,6 +5,7 @@ const snyk = require('./snyk')
 const { getSubdirectories } = require('./utils/directory')
 const parseResults = require('./utils/parseResults')
 const { red } = require('chalk')
+require('console-warn')
 
 const severity = argv.severity
 const org = argv.org
