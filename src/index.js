@@ -23,6 +23,8 @@ if(argv.v || argv.version) {
   process.exit(0)
 }
 
+console.warn('NOTICE: Snyk has officially added support for this functionality. This package will no longer be updated. You can use \'snyk test --all-projects\' instead')
+
 const SNYK_BIN = which.sync('snyk', { nothrow: true })
 if (SNYK_BIN) {
   console.log(`Finding subdirectories...`)
